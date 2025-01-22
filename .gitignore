@@ -11,6 +11,7 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 CMakeUserPresets.json
+build_debug
 
 ## C++
 # Prerequisites
@@ -45,3 +46,7 @@ CMakeUserPresets.json
 *.exe
 *.out
 *.app
+
+
+## ImGUI
+imgui.ini
