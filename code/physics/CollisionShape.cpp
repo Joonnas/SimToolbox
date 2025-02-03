@@ -99,6 +99,11 @@ void CollisionShape::update(float deltaTime) {
 
     }
 
+    // set aabb
+    // TODO: set position and size based on size 
+    aabb.set_position(aMath::Vec2(pos->get().x - 0.25, pos->get().y - 0.25));
+    aabb.set_size(aMath::Vec2(0.5, 0.5));
+
     // calculate broad phase
     bool collides_broad_phase = PhysicsServer::get_singleton()->calculate_broad_phase_collision(broad_phase_collision_type->get(), this);
     // calculate narrow phase
@@ -130,10 +135,17 @@ void CollisionShape::render() {
 
     glBindVertexArray(0);
     glUseProgram(0);
+
+    // draw AABB
+    if (draw_aabb->get()) {
+        DrawPen::get_drawpen_singleton()->set_stroke_size(0.25);
+        DrawPen::get_drawpen_singleton()->set_draw_color(color->get());
+        DrawPen::get_drawpen_singleton()->drawRect(aabb.get_position(), aabb.get_size());
+    }
 }
 
-CollisionShape::CollisionShape(Property<aMath::Vec3>* p_pos, Property<aMath::Vec4>* p_color, Property<bool>* p_react_to_forces, Property<bool>* p_react_to_keyboard, Property<int>* p_shape, Property<int>* p_broad_phase_collision_type, Property<int>* p_narrow_phase_collision_type) :
-    pos(p_pos), color(p_color), react_to_forces(p_react_to_forces), react_to_keyboard(p_react_to_keyboard), shape(p_shape), broad_phase_collision_type(p_broad_phase_collision_type), narrow_phase_collision_type(p_narrow_phase_collision_type) {
+CollisionShape::CollisionShape(Property<aMath::Vec3>* p_pos, Property<aMath::Vec4>* p_color, Property<bool>* p_react_to_forces, Property<bool>* p_react_to_keyboard, Property<int>* p_shape, Property<int>* p_broad_phase_collision_type, Property<int>* p_narrow_phase_collision_type, Property<bool>* p_draw_aabb) :
+    pos(p_pos), color(p_color), react_to_forces(p_react_to_forces), react_to_keyboard(p_react_to_keyboard), shape(p_shape), broad_phase_collision_type(p_broad_phase_collision_type), narrow_phase_collision_type(p_narrow_phase_collision_type), draw_aabb(p_draw_aabb) {
 
     // OPENGL RENDERING
 

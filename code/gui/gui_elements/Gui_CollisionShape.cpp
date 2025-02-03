@@ -95,6 +95,8 @@ void Gui_CollisionShape::renderGui() {
     ImGui::PushID(id);
     if (ImGui::TreeNode("Debug")) {
 
+        ImGui::Checkbox("Draw AABB", &draw_aabb);
+
         ImGui::TreePop();
     }
     ImGui::PopID();
@@ -110,7 +112,7 @@ Gui_CollisionShape::Gui_CollisionShape() {
     name = "CollisionShape" + std::to_string(Gui_CollisionShape::ID);
     id = Gui_CollisionShape::ID++;
 
-    cs = new CollisionShape(position.getPointer(), color.getPointer(), react_to_forces.getPointer(), react_to_keyboard.getPointer(), shape.getPointer(), broad_phase_collision_type.getPointer(), narrow_phase_collision_type.getPointer());
+    cs = new CollisionShape(position.getPointer(), color.getPointer(), react_to_forces.getPointer(), react_to_keyboard.getPointer(), shape.getPointer(), broad_phase_collision_type.getPointer(), narrow_phase_collision_type.getPointer(), draw_aabb.getPointer());
 }
 
 // TODO: Rigid body will be a collisionshape that reacts differently (in a correct way) to forces

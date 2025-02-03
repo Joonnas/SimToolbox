@@ -65,7 +65,11 @@ private:
     Property<int>* broad_phase_collision_type;
     Property<int>* narrow_phase_collision_type;
 
+    Property<bool>* draw_aabb;
 
+    AABB aabb;
+
+private:
     aMath::Vec3 get_pos() const { return pos->get(); }
 
 public:
@@ -74,8 +78,9 @@ public:
     void render();
 
     // float get_radius();
+    AABB get_aabb() const { return aabb; }
 
-    CollisionShape(Property<aMath::Vec3>* p_pos, Property<aMath::Vec4>* p_color, Property<bool>* p_react_to_forces, Property<bool>* p_react_to_keyboard, Property<int>* p_shape, Property<int>* p_broad_phase_collision_type, Property<int>* p_narrow_phase_collision_type);
+    CollisionShape(Property<aMath::Vec3>* p_pos, Property<aMath::Vec4>* p_color, Property<bool>* p_react_to_forces, Property<bool>* p_react_to_keyboard, Property<int>* p_shape, Property<int>* p_broad_phase_collision_type, Property<int>* p_narrow_phase_collision_type, Property<bool>* p_draw_aabb);
     ~CollisionShape();
 
 };

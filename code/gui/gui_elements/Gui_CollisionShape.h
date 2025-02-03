@@ -35,6 +35,9 @@ private:
     ImVector<char> code_string_broad_phase;
     ImVector<char> code_string_narrow_phase;
 
+    //Debug
+    Property<bool> draw_aabb = false;
+
     CollisionShape* cs;
 
 public:

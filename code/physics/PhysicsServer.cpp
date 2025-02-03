@@ -23,8 +23,12 @@ bool PhysicsServer::_broad_phase_collision_radius(CollisionShape* cs) {
 }
 
 bool PhysicsServer::_broad_phase_collision_aabb(CollisionShape* cs) {
-    // Theoretisch müsste ich den AABB von der CollisionShape bekommen a la
-    // cs->get_aabb();
+    // for every registered collision shape test whether the aabb's intersect.
+    // If there is a collision: return true
+    // Else return false
+    for (int i = 0; i < registered_collision_shapes.size(); i++) {
+        if (cs->get_aabb().intersects_aabb(registered_collision_shapes[i]->get_aabb())) return true;
+    }
     return false;
 }
 
