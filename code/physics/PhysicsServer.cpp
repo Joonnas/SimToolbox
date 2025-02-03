@@ -15,6 +15,10 @@ bool PhysicsServer::has_collision_shape(CollisionShape* cs) {
 
 // Broad Phase Collision
 bool PhysicsServer::_broad_phase_collision_radius(CollisionShape* cs) {
+    // float r = cs->get_radius_collision();
+    // for c in registered_collision_shapes {
+    //      if (distance(c, cs) < (r + c->get_radius_collision)) return true
+    // }
     return false;
 }
 

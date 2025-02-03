@@ -23,6 +23,12 @@ private:
     Property<int> broad_phase_collision_type = 0;
     Property<int> narrow_phase_collision_type = 0;
 
+    // Radius properties
+    // Property<float> circle_radius = 1.0;
+
+    // // AABB properties
+    // Property<aMath::Vec2> extents = aMath::Vec2(1.0, 1.0);
+
     Property<bool> use_custom_broad_phase = false;
     Property<bool> use_custom_narrow_phase = false;
 

@@ -8,6 +8,33 @@
 #include "Utils/properties.h"
 #include "data_structures/quadtree.h"
 
+struct AABB {
+private:
+    aMath::Vec2 position;
+    aMath::Vec2 size;
+public:
+    bool intersects_point(aMath::Vec2 p_point) {
+        if (p_point.x < position.x) return false;
+        if (p_point.x > (position.x + size.x)) return false;
+        if (p_point.y < position.y) return false;
+        if (p_point.y > (position.y + size.y)) return false;
+        return true;
+    }
+    bool intersects_aabb(AABB& p_aabb) {
+        if (p_aabb.position.x > (position.x + size.x)) return false;
+        if ((p_aabb.position.x + p_aabb.size.x) < position.x) return false;
+        if (p_aabb.position.y > (position.y + size.y)) return false;
+        if ((p_aabb.position.y + p_aabb.size.y) < position.y) return false;
+        return true;
+    }
+
+    void set_position(aMath::Vec2 p_position) { position = p_position; }
+    void set_size(aMath::Vec2 p_size) { size = p_size; }
+    aMath::Vec2 get_position() const { return position; }
+    aMath::Vec2 get_size() const { return size; }
+
+};
+
 class CollisionShape {
 private:
     static float vertices_circle[180]; // 20 triangles
@@ -45,6 +72,8 @@ public:
 
     void update(float deltaTime);
     void render();
+
+    // float get_radius();
 
     CollisionShape(Property<aMath::Vec3>* p_pos, Property<aMath::Vec4>* p_color, Property<bool>* p_react_to_forces, Property<bool>* p_react_to_keyboard, Property<int>* p_shape, Property<int>* p_broad_phase_collision_type, Property<int>* p_narrow_phase_collision_type);
     ~CollisionShape();
