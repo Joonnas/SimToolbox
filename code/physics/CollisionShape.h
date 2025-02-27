@@ -32,8 +32,29 @@ public:
     void set_size(aMath::Vec2 p_size) { size = p_size; }
     aMath::Vec2 get_position() const { return position; }
     aMath::Vec2 get_size() const { return size; }
-
 };
+
+struct OBB_2 {
+private:
+    aMath::Vec2 center;
+    aMath::Vec2 axis_x;
+    aMath::Vec2 axis_y;
+    aMath::Vec2 half_edge_lengths;
+public:
+    bool intersects_obb(OBB_2& p_aabb) {
+        return false;
+    }
+
+    void set_center(aMath::Vec2 p_center) { center = p_center; }
+    void set_axis_x(aMath::Vec2 p_axis_x) { axis_x = p_axis_x; }
+    void set_axis_y(aMath::Vec2 p_axis_y) { axis_y = p_axis_y; }
+    void set_half_edge_lenths(aMath::Vec2 p_half_edge_lengths) { half_edge_lengths = p_half_edge_lengths; }
+    aMath::Vec2 get_center() const { return center; }
+    aMath::Vec2 get_axis_x() const { return axis_x; }
+    aMath::Vec2 get_axis_y() const { return axis_y; }
+    aMath::Vec2 get_half_edge_lengths() const { return half_edge_lengths; }
+};
+
 
 class CollisionShape {
 private:
