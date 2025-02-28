@@ -1,0 +1,3 @@
+[submodule "code/ext/include/aMath"]
+	path = code/ext/include/aMath
+	url = https://github.com/Andromeda-Apps/aMath.git
