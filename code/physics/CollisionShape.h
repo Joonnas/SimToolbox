@@ -53,6 +53,27 @@ public:
     aMath::Vec2 get_axis_x() const { return axis_x; }
     aMath::Vec2 get_axis_y() const { return axis_y; }
     aMath::Vec2 get_half_edge_lengths() const { return half_edge_lengths; }
+    
+    aMath::Vec2 project(aMath::Vec2& p_axis, OBB_2& p_obb) {
+        aMath::Vec2 ret;
+        float r = abs(aMath::dot(p_obb.axis_x, p_axis) * half_edge_lengths.x) + abs(aMath::dot(p_obb.axis_y, p_axis) * half_edge_lengths.y);
+        ret.x = aMath::dot(p_obb.center, p_axis) - r;
+        ret.y = aMath::dot(p_obb.center, p_axis) + r;
+        return ret;
+    }
+    bool intersects_obb2(OBB_2& p_obb) {
+        aMath::Vec2 axes[4] = {axis_x, axis_y,
+                            p_obb.axis_x, p_obb.axis_y,
+        };
+        // For every axis project the 2 OBBs onto the axis
+        for (int i = 0; i < 4; i++) {
+            aMath::Vec2 pr1 = project(axes[i], *this);
+            aMath::Vec2 pr2 = project(axes[i], p_obb);
+            // If the intervals don't overlap we have no collission along this axis and can return early
+            if (!(pr1.y >= pr2.x && pr1.x <= pr2.y)) return false;
+        }
+        return true;
+    }
 };
 
 
