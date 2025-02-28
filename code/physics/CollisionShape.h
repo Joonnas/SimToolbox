@@ -41,10 +41,6 @@ private:
     aMath::Vec2 axis_y;
     aMath::Vec2 half_edge_lengths;
 public:
-    bool intersects_obb(OBB_2& p_aabb) {
-        return false;
-    }
-
     void set_center(aMath::Vec2 p_center) { center = p_center; }
     void set_axis_x(aMath::Vec2 p_axis_x) { axis_x = p_axis_x; }
     void set_axis_y(aMath::Vec2 p_axis_y) { axis_y = p_axis_y; }
@@ -62,9 +58,11 @@ public:
         return ret;
     }
     bool intersects_obb2(OBB_2& p_obb) {
+        // For 2D OBBs we only need the OBB axes since the edge normals are aligned with them
         aMath::Vec2 axes[4] = {axis_x, axis_y,
-                            p_obb.axis_x, p_obb.axis_y,
+                        p_obb.axis_x, p_obb.axis_y,
         };
+
         // For every axis project the 2 OBBs onto the axis
         for (int i = 0; i < 4; i++) {
             aMath::Vec2 pr1 = project(axes[i], *this);
